@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Beloved Prayer | Dawud (AS) Schedule</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://share.google/xVHCWj6uDTrVpZLQP">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #020617;
-            --surface: #0f172a;
+            /* 1. Updated Palette for Night-to-Dawn Gradient */
+            --bg-top: #020617;
+            --bg-bottom: #0f172a;
+            --surface: rgba(15, 23, 42, 0.6);
             --accent: #38bdf8;
             --text-p: #94a3b8;
             --text-h: #f8fafc;
@@ -22,7 +26,9 @@
         body {
             margin: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
+            /* 1. Night-to-Dawn Gradient Background */
+            background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+            background-attachment: fixed;
             color: var(--text-h);
             display: flex;
             flex-direction: column;
@@ -30,6 +36,7 @@
             padding: 60px 20px;
             line-height: 1.8;
             scroll-behavior: smooth;
+            min-height: 100vh;
         }
 
         .wrapper {
@@ -47,7 +54,8 @@
             font-family: 'Amiri', serif;
             font-size: 1.35rem;
             color: var(--text-h);
-            background: linear-gradient(145deg, var(--surface), var(--bg));
+            background: var(--surface);
+            backdrop-filter: blur(10px);
             padding: 3rem;
             border-radius: 32px;
             border: 1px solid var(--border);
@@ -68,6 +76,7 @@
         /* Calculator Card */
         .card {
             background: var(--surface);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 32px;
             padding: 3rem;
@@ -101,10 +110,15 @@
             color: white;
             font-size: 1.1rem;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1); }
+        /* 3. Micro-interaction: Hover Glow */
+        input:focus { 
+            border-color: var(--accent); 
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15); 
+            transform: scale(1.01);
+        }
 
         button {
             width: 100%;
@@ -116,17 +130,20 @@
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-top: 10px;
         }
 
-        button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2); }
+        button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4); 
+            filter: brightness(1.1);
+        }
 
-        /* Results Area */
+        /* 2. Results Area */
         .results-area {
-            margin-top: 3.5rem;
+            margin-top: 4rem;
             display: none;
-            animation: fadeIn 0.8s ease;
         }
 
         .results-title {
@@ -148,6 +165,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            /* 3. Stagger preparation */
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .segment.show {
+            animation: slideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .segment.prayer { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); }
@@ -170,7 +198,6 @@
             text-align: center;
             font-weight: 700;
             letter-spacing: -1.5px;
-            /* Blue-White Transition Gradient */
             background: linear-gradient(to right, var(--accent), #ffffff, var(--accent));
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -185,6 +212,8 @@
         .virtues-content {
             font-size: 1.15rem;
             color: var(--text-p);
+            /* 4. Typography refinement: Better spacing */
+            line-height: 1.9;
         }
 
         .virtues-content p {
@@ -195,28 +224,29 @@
             display: block;
             background: var(--quote-bg);
             border-left: 4px solid var(--accent);
-            padding: 2rem 2.5rem;
-            margin: 2.5rem 0;
-            border-radius: 4px 24px 24px 4px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border-radius: 4px 32px 32px 4px;
             color: var(--text-h);
             font-style: italic;
             font-family: 'Amiri', serif;
-            font-size: 1.25rem;
-            line-height: 2;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            font-size: 1.3rem;
+            line-height: 2.2;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+            position: relative;
         }
 
         .hadith-inline {
             color: var(--accent);
             font-weight: 600;
+            border-bottom: 1px dashed rgba(56, 189, 248, 0.3);
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
             .input-row { grid-template-columns: 1fr; }
             .card { padding: 1.5rem; }
             .virtues-section h2 { font-size: 2.2rem; }
+            .hadith-text { padding: 2rem; font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -245,22 +275,23 @@
 
         <div id="results" class="results-area">
             <h3 class="results-title">The Beloved Schedule</h3>
+            
             <div class="timeline">
-                <div class="segment">
+                <div class="segment" id="seg1">
                     <div class="seg-info">
                         <h4>First Rest (1/2)</h4>
                         <p id="t1">--</p>
                     </div>
                     <div class="badge">Sleep</div>
                 </div>
-                <div class="segment prayer">
+                <div class="segment prayer" id="seg2">
                     <div class="seg-info">
                         <h4>Qiyam al-Layl (1/3)</h4>
                         <p id="t2">--</p>
                     </div>
                     <div class="badge">Pray</div>
                 </div>
-                <div class="segment">
+                <div class="segment" id="seg3">
                     <div class="seg-info">
                         <h4>Final Rest (1/6)</h4>
                         <p id="t3">--</p>
@@ -353,8 +384,20 @@
         document.getElementById('t2').innerText = `${fmt(prayerStart)} – ${fmt(lastSleepStart)}`;
         document.getElementById('t3').innerText = `${fmt(lastSleepStart)} – ${fmt(end)}`;
 
-        document.getElementById('results').style.display = 'block';
-        document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Show results
+        const results = document.getElementById('results');
+        results.style.display = 'block';
+        
+        // 3. Staggered entrance animation
+        const segments = [document.getElementById('seg1'), document.getElementById('seg2'), document.getElementById('seg3')];
+        segments.forEach((seg, i) => {
+            seg.classList.remove('show');
+            setTimeout(() => {
+                seg.classList.add('show');
+            }, i * 150);
+        });
+
+        results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 </script>
 
