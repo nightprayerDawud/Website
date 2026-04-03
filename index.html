@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Beloved Prayer | Dawud (AS) Schedule</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020617;
+            --surface: #0f172a;
+            --accent: #38bdf8;
+            --text-p: #94a3b8;
+            --text-h: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --quote-bg: rgba(56, 189, 248, 0.05);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-h);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            line-height: 1.8;
+            scroll-behavior: smooth;
+        }
+
+        .wrapper {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        /* Hadith Header */
+        .hadith-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .hadith-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.35rem;
+            color: var(--text-h);
+            background: linear-gradient(145deg, var(--surface), var(--bg));
+            padding: 3rem;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .hadith-ref {
+            display: block;
+            margin-top: 1.5rem;
+            font-family: 'Plus Jakarta Sans';
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Calculator Card */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.5);
+            margin-bottom: 6rem;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .input-box label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-p);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1); }
+
+        button {
+            width: 100%;
+            background: var(--accent);
+            color: #020617;
+            border: none;
+            padding: 18px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2); }
+
+        /* Results Area */
+        .results-area {
+            margin-top: 3.5rem;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .results-title {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            color: var(--accent);
+        }
+
+        .timeline { display: flex; flex-direction: column; gap: 16px; }
+
+        .segment {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 1.8rem;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .segment.prayer { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); }
+
+        .seg-info h4 { margin: 0; font-size: 0.9rem; color: var(--text-p); font-weight: 400; }
+        .seg-info p { margin: 6px 0 0 0; font-weight: 600; font-size: 1.2rem; }
+
+        .badge { font-size: 0.75rem; padding: 6px 14px; border-radius: 30px; background: rgba(255,255,255,0.1); color: var(--text-p); }
+        .prayer .badge { background: var(--accent); color: #020617; font-weight: 700; }
+
+        /* Virtues Section */
+        .virtues-section {
+            padding: 5rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .virtues-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 3.5rem;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            /* Blue-White Transition Gradient */
+            background: linear-gradient(to right, var(--accent), #ffffff, var(--accent));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .virtues-content {
+            font-size: 1.15rem;
+            color: var(--text-p);
+        }
+
+        .virtues-content p {
+            margin-bottom: 2.5rem;
+        }
+
+        .quote-block {
+            display: block;
+            background: var(--quote-bg);
+            border-left: 4px solid var(--accent);
+            padding: 2rem 2.5rem;
+            margin: 2.5rem 0;
+            border-radius: 4px 24px 24px 4px;
+            color: var(--text-h);
+            font-style: italic;
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            line-height: 2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hadith-inline {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .input-row { grid-template-columns: 1fr; }
+            .card { padding: 1.5rem; }
+            .virtues-section h2 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header class="hadith-header">
+        <div class="hadith-text">
+            "Narrated `Abdullah bin `Amr: Allah's Messenger (ﷺ) said to me, 'The most beloved fasting to Allah was the fasting of (the Prophet) David who used to fast on alternate days. And the most beloved prayer to Allah was the prayer of David who used to sleep for (the first) half of the night and pray for 1/3 of it and (again) sleep for a sixth of it.'"
+            <span class="hadith-ref">Sahih al-Bukhari 3420</span>
+        </div>
+    </header>
+
+    <main class="card">
+        <div class="input-row">
+            <div class="input-box">
+                <label>Isha End / Start of Sleep</label>
+                <input type="time" id="ishaTime" value="20:00">
+            </div>
+            <div class="input-box">
+                <label>Fajr Start</label>
+                <input type="time" id="fajrTime" value="05:00">
+            </div>
+        </div>
+        <button onclick="calculateBeloved()">Calculate Beloved Schedule</button>
+
+        <div id="results" class="results-area">
+            <h3 class="results-title">The Beloved Schedule</h3>
+            <div class="timeline">
+                <div class="segment">
+                    <div class="seg-info">
+                        <h4>First Rest (1/2)</h4>
+                        <p id="t1">--</p>
+                    </div>
+                    <div class="badge">Sleep</div>
+                </div>
+                <div class="segment prayer">
+                    <div class="seg-info">
+                        <h4>Qiyam al-Layl (1/3)</h4>
+                        <p id="t2">--</p>
+                    </div>
+                    <div class="badge">Pray</div>
+                </div>
+                <div class="segment">
+                    <div class="seg-info">
+                        <h4>Final Rest (1/6)</h4>
+                        <p id="t3">--</p>
+                    </div>
+                    <div class="badge">Sleep</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="virtues-section">
+        <h2>Virtues of Qiyam Al-Layl</h2>
+        <div class="virtues-content">
+            <p>Qiyam Al-Layl is a confirmed Sunnah. Many texts of the Quran and Sunnah encourage it and speak of its high status and great reward.</p>
+            
+            <p>Qiyam Al-Layl plays a great role in strengthening one's faith and helping one to do good deeds. Allah says (interpretation of the meaning):</p>
+            
+            <span class="quote-block">“O you wrapped in garments (i.e. Prophet Muhammad)! Stand (to pray) all night, except a little — Half of it or a little less than that, Or a little more. And recite the Quran (aloud) in a slow, (pleasant tone and) style. Verily, We shall send down to you a weighty Word (i.e. obligations, laws). Verily, the rising by night (for Tahajjud prayer ) is very hard and most potent and good for governing oneself, and most suitable for (understanding) the Word (of Allah).” [Al-Muzzamil 73:1-6]</span>
+
+            <p>Allah praises those who have faith and are pious for their noble characteristics and good deeds, one of the most special of which is Qiyam Al-Layl. Allah says (interpretation of the meaning):</p>
+            
+            <span class="quote-block">“Only those believe in Our Ayat (proofs, evidences, verses, lessons, signs, revelations, etc.), who, when they are reminded of them, fall down prostrate, and glorify the Praises of their Lord, and they are not proud. Their sides forsake their beds, to invoke their Lord in fear and hope, and they spend (in charity in Allah’s Cause) out of what We have bestowed on them. No person knows what is kept hidden for them of joy as a reward for what they used to do.” [As-Sajdah 32:15-17]</span>
+
+            <p>Allah describes them elsewhere in the following terms (interpretation of the meaning):</p>
+            
+            <span class="quote-block">“And those who spend the night in worship of their Lord, prostrating and standing. And those who say: “Our Lord! Avert from us the torment of Hell. Verily, its torment is ever an inseparable, permanent punishment.” Evil indeed it (Hell) is as an abode and as a place to rest in. And those who, when they spend, are neither extravagant nor niggardly, but hold a medium (way) between those (extremes). And those who do not invoke any other god along with Allah, nor kill the soul which Allah has forbidden [to be killed], except by right, nor commit illegal sexual intercourse and whoever does this shall receive the punishment. The torment will be doubled to him on the Day of Resurrection, and he will abide therein in disgrace; Except those who repent and believe (in Islamic Monotheism), and do righteous deeds; for those, Allah will change their sins into good deeds, and Allah is Oft-Forgiving, Most Merciful. And whosoever repents and does righteous good deeds; then verily, he repents towards Allah with true repentance. And those who do not bear witness to falsehood, and if they pass by some evil play or evil talk, they pass by it with dignity. And those who, when they are reminded of the Ayat (proofs, evidences, verses, lessons, signs, revelations, etc.) of their Lord, fall not deaf and blind thereat. And those who say: “Our Lord! Bestow on us from our wives and our offspring the comfort of our eyes, and make us leaders of the Muttaqun (the pious).” Those will be rewarded with the highest place (in Paradise) because of their patience. Therein they shall be met with greetings and the word of peace and respect. Abiding therein excellent it is as an abode, and as a place to rest in.” [Al-Furqan 25:64-76]</span>
+
+            <p>From this we may note the virtue of Qiyam Al-Layl and its good consequences that cannot be ignored; it is one of the means of avoiding the punishment of Hell and attaining Paradise, and we may note the great blessing it brings of conversing with the Lord. May Allah make us among those who attain success thereby.</p>
+            
+            <p>Allah has described the pious in Surah Adh-Dhariyat as having a number of characteristics – including praying Qiyam Al-Layl – by means of which they attain Paradise. Allah says (interpretation of the meaning):</p>
+            
+            <span class="quote-block">“Verily, the pious will be in the midst of Gardens and Springs (in the Paradise), Taking joy in the things which their Lord has given them. Verily, they were before this, good-doers. They used to sleep but little by night [invoking their Lord (Allah) and praying, with fear and hope]” [Adh-Dhariyat 51:15-17]</span>
+
+            <p>The Prophet (peace and blessings of Allah be upon him) encouraged us to pray Qiyam Al-Layl in many Hadiths, such as the following:</p>
+            
+            <p>The Prophet (peace and blessings of Allah be upon him) said: <span class="hadith-inline">“The best prayer after the obligatory prayer is prayer at night.”</span> (Narrated by Muslim, 1163)</p>
+            
+            <p>He (peace and blessings of Allah be upon him) also said: <span class="hadith-inline">“You should pray Qiyam Al-Layl , for it is the custom of the righteous who came before you and it brings you closer to your Lord, and expiates sins and prevents misdeeds.”</span> (Narrated by At-Tirmidhi, 3549; classed as sound by Al-Albani in Irwa’ Al-Ghalil, 452)</p>
+            
+            <p>“The custom of the righteous” means it was their usual practise. <br>
+            “It brings you closer to your Lord” means, it is an act of worship by means of which one may draw closer to Allah. <br>
+            “and prevents misdeeds” means, it prevents one from committing sin. Allah says (interpretation of the meaning):</p>
+            
+            <span class="quote-block">“Verily, the prayer prevents from great sins (of every kind, and from unlawful sexual intercourse) and Al-Munkar (i.e. disbelief, polytheism, and every kind of evil wicked deed).” [Al-`Ankabut 29:45]</span>
+
+            <p>`Amr ibn Murrah Al-Juhani (may Allah be pleased with him) said: A man came to the Messenger of Allah (peace and blessings of Allah be upon him) from Qada’ah and said to him: “O Messenger of Allah, what do you think if I bear witness that there is none is worthy of worship except Allah and that you are His Messenger, and I pray the five daily prayers, and fast the month (of Ramadan), and pray Qiyam in Ramadan, and pay Zakah?” The Prophet (peace and blessings of Allah be upon him) said: <span class="hadith-inline">“Whoever dies doing that will be one of the Siddiqs and martyrs.”</span> (Narrated by Ibn Khuzaymah; classed as authentic by Al-Albani in Sahih Ibn Khuzaymah, 2212)</p>
+
+            <p>At-Tirmidhi (1984) narrated that `Ali (may Allah be pleased with him) said: The Prophet (peace and blessings of Allah be upon him) said: <span class="hadith-inline">“In Paradise there are apartments the outside of which can be seen from the inside and the inside of which can be seen from the outside.”</span> A Bedouin stood up and said: “Who are they for, O Messenger of Allah?” He said: <span class="hadith-inline">“They are for those who speak good words, feed others, fast regularly and pray to Allah at night when people are sleeping.”</span> (Classed as sound by Al-Albani in Sahih At-Tirmidhi)</p>
+
+            <p>Al-Hakim (may Allah have mercy on him) narrated that the Prophet (peace and blessings of Allah be upon him) said: <span class="hadith-inline">“Jibril came to me and said: `O Muhammad, live as long as you want, for you will die. Love whomever you want, for you will leave him. Do whatever you want for you will be requited for it. Remember that the believer’s honour is his praying at night, and his pride is his being independent of people.”</span> (Classed as sound by Al-Albani in Sahih Al-Jami`, 73)</p>
+
+            <p>The Messenger of Allah (peace and blessings of Allah be upon him) said: <span class="hadith-inline">“Whoever prays Qiyam reciting ten verses will not be recorded as one of the negligent. Whoever prays Qiyam reciting one hundred verses will be recorded as one of the devout. Whoever prays Qiyam reciting one thousand verses will be recorded as one of the Muqantirin.”</span> (Narrated by Abu Dawud, 1398; classed as authentic by Al-Albani in Sahih Abu Dawud)</p>
+
+            <p>The Muqantirin are those who will be given a Qintar of reward. A Qintar is a large amount of gold, and most of the scholars of Arabic language are of the view that it is four thousand Dinars. It was also said that a Qintar is a bull’s hide full of gold, or eighty thousand, or a large but unspecified amount of wealth. (See Al-Nihayah fi Gharib il-Hadith by Ibn Al-Athir)</p>
+
+            <p>What is meant by this Hadith is to emphasize the greatness of the reward earned by the one who recites a thousand verses. At-Tabarani narrated that the Prophet (peace and blessings of Allah be upon him) said: <span class="hadith-inline">“A Qintar is better than this world and everything in it.”</span> (Classed as sound by Al-Albani in Sahih At-Targhib, 638)</p>
+
+            <p>Ibn Hajar (may Allah have mercy on him) said: From Surah Tabarak [Al-Mulk] to the end of the Quran is one thousand verses. Whoever prays Qiyam reciting from Surah Tabarak to the end of Quran has prayed Qiyam with one thousand verses.</p>
+
+            <p style="text-align: center; font-weight: 600; color: var(--accent); margin-top: 4rem; font-size: 1.3rem;">And Allah knows best.</p>
+        </div>
+    </section>
+</div>
+
+<script>
+    function calculateBeloved() {
+        const isha = document.getElementById('ishaTime').value;
+        const fajr = document.getElementById('fajrTime').value;
+
+        if (!isha || !fajr) return;
+
+        const [iH, iM] = isha.split(':').map(Number);
+        const [fH, fM] = fajr.split(':').map(Number);
+
+        let start = new Date(0, 0, 0, iH, iM);
+        let end = new Date(0, 0, 0, fH, fM);
+
+        if (end < start) end.setDate(end.getDate() + 1);
+
+        const totalMins = (end - start) / 60000;
+        const half = totalMins / 2;
+        const third = totalMins / 3;
+
+        const prayerStart = new Date(start.getTime() + half * 60000);
+        const lastSleepStart = new Date(prayerStart.getTime() + third * 60000);
+
+        const fmt = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+        document.getElementById('t1').innerText = `${fmt(start)} – ${fmt(prayerStart)}`;
+        document.getElementById('t2').innerText = `${fmt(prayerStart)} – ${fmt(lastSleepStart)}`;
+        document.getElementById('t3').innerText = `${fmt(lastSleepStart)} – ${fmt(end)}`;
+
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+</script>
+
+</body>
+</html>
